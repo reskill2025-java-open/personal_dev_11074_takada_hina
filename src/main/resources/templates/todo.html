@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>ToDo一覧</h1>
+<table border="1">
+	<tr>
+		<th>タイトル</th><th>期限</th><th>内容</th><th>削除</th>
+	</tr>
+	<tr th:each="title:${titlesList}">
+		<td><a href="/todo/detail">[[${title.title}]]</a></td>>
+		<td>[[${title.deadline}]]</td>>
+		<td>[[${title.titleContents}]]</td>
+		<td>
+			<form>
+				<button>削除</button>
+			</form>
+		</td>
+
+	</tr>
+</table>
+<form>
+	<button>ToDoを追加する</button>
+</form>
+</body>
+</html>

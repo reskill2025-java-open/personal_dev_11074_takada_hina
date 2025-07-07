@@ -5,9 +5,10 @@
 
     -- users テーブルを作成するクエリ
     CREATE TABLE users (
-    id INTEGER PRIMARY KEY,
+    id SERIAL NOT NULL,
     name VARCHAR(20),
-    password VARCHAR(50)
+    password VARCHAR(50),
+    PRIMARY KEY(id)
     );
 
     -- titles テーブルを作成するクエリ
