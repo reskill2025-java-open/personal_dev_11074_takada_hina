@@ -6,11 +6,48 @@
 </head>
 <body>
 <h1>ToDo詳細</h1>
-<from>
-	<button>ToDo一覧に戻る</button>
-</from>
+
+<table border="1">
+	<tr>
+		<th>タイトル</th>
+		<th>期限</th>
+		<th>内容</th>
+	</tr>
+	<tr th:each="title:${titlesList}">
+		<td>[[${title.title}]]</td>
+		<td>[[${title.deadline}]]</td>
+		<td>[[${title.titleContents}]]</td>
+		
+		<form action="/todo/edit" method="get">
+			
+			<input type="hidden" name="title" th:value="${title.title}" >
+			<input type="hidden" name="deadline" tsh:value="${title.deadline}" >
+			<input type="hidden" name="titleContents" th:value="${title.titleContents}" >
+			
+			<button>詳細を変更する</button>
+		</form>
+		
+	</tr>
+</table>
+
+<table border="1">
+	<tr>
+		<th>タスク</th>
+	</tr>
+	<tr th:each="task:${tasksList}">
+		<td>[[${task.taskTitle}]]</td>
+		
+	</tr>
+</table>
+
+
 <form>
-	<button>完了</button>
+	<button>ToDo一覧に戻る</button>
 </form>
+
 </body>
+</html>
+
+</body>
+
 </html>

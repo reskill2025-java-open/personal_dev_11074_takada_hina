@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<h1>編集画面</h1>
+
+	<form action="/todo/update" method="post">
+
+		<table border="1">
+			<tr>
+				<th>ID</th>
+				<td>[[${id}]]<input type="hidden" name="id" th:value="${id}"></td>
+			</tr>
+			<tr>
+				<th>タイトル</th>
+				<td><input type="text" name="title" th:value="${title}"></td>
+			</tr>
+			<tr>
+				<th>期限</th>
+				<td><input type="text" name="deadline" th:value="${deadline}"></td>
+			</tr>
+			<tr>
+				<th>内容</th>
+				<td><input type="text" name="titleContents" th:value="${titleContents}"></td>
+			</tr>
+
+
+
+
+		</table>
+
+
+		<button>完了</button>
+	</form>
+
+</body>
+
+</html>

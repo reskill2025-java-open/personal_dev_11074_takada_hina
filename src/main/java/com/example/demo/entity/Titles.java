@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +22,7 @@ public class Titles {
 
 	private String title;
 
-	private String deadline;
+	private LocalDate deadline;
 
 	@Column(name = "title_progress")
 	private Integer titleProgress;
@@ -52,11 +54,11 @@ public class Titles {
 		this.title = title;
 	}
 
-	public String getDeadline() {
+	public LocalDate getDeadline() {
 		return deadline;
 	}
 
-	public void setDeadline(String deadline) {
+	public void setDeadline(LocalDate deadline) {
 		this.deadline = deadline;
 	}
 
