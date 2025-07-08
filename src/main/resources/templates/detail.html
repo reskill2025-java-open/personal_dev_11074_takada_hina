@@ -20,6 +20,7 @@
 		
 		<form action="/todo/edit" method="get">
 			
+			<input type="hidden" name="id" th:value="${title.id}" >
 			<input type="hidden" name="title" th:value="${title.title}" >
 			<input type="hidden" name="deadline" th:value="${title.deadline}" >
 			<input type="hidden" name="titleContents" th:value="${title.titleContents}" >
