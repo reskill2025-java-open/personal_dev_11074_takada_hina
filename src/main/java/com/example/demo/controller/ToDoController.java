@@ -43,6 +43,27 @@ public class ToDoController {
 		return "todo";
 	}
 
+	@GetMapping("/delete/{id}") //todo一覧を削除
+	public String delete(
+			@PathVariable("id") Integer id,
+			Model model) {
+
+		titlesRepository.deleteById(id);
+
+		return "redirect:/todo";
+	}
+
+	@GetMapping("/deleteTask/{id}") //taskを削除
+	public String deleteTask(
+			@PathVariable("id") Integer id,
+			@RequestParam("titleId") Integer titleId,
+			Model model) {
+
+		taskRepository.deleteById(id);
+
+		return "redirect:/todo/detail/" + titleId;
+	}
+
 	@GetMapping("/todo/detail/{id}") //todo詳細を表示
 	public String detail(
 			@PathVariable("id") Integer id, Model model) {
@@ -72,7 +93,7 @@ public class ToDoController {
 		return "edit";
 	}
 
-	@PostMapping("todo/update")
+	@PostMapping("todo/update") //編集完了
 	public String update(
 
 			@RequestParam("id") Integer id,
@@ -97,6 +118,11 @@ public class ToDoController {
 		//		System.out.println("titles=" + titles);
 
 		return "todo";
+	}
+
+	@GetMapping("/todo/new") //ToDo新規追加画面を表示する
+	public String addToDo() {
+		return "addToDo";
 	}
 
 }

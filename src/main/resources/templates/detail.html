@@ -12,11 +12,17 @@
 		<th>タイトル</th>
 		<th>期限</th>
 		<th>内容</th>
+		<th>削除</th>
 	</tr>
 	<tr th:each="title:${titlesList}">
-		<td>[[${title.title}]]</td>
-		<td>[[${title.deadline}]]</td>
-		<td>[[${title.titleContents}]]</td>
+		<td th:text="${title.title}"></td>
+		<td th:text="${title.deadline}"></td>
+		<td th:text="${title.titleContents}"></td>
+		<td>
+			<form th:action="@{/delete/{id}(id=${title.id})}" method="get">
+			<button>削除</button>
+			</form>
+		</td>
 		
 		<form action="/todo/edit" method="get">
 			
@@ -33,21 +39,28 @@
 
 <table border="1">
 	<tr>
-		<th>タスク</th>
+		<th>タスク</th><th>削除</th>
 	</tr>
 	<tr th:each="task:${tasksList}">
-		<td>[[${task.taskTitle}]]</td>
+		<td th:text="${task.taskTitle}"></td>
+	
+		<td>
+			<form th:action="@{/deleteTask/{id}(id=${task.id})}" method="get">
+					<input type="hidden" name="titleId" th:value="${task.titleId}">
+			<button>削除</button>
+			</form>
+		</td>
 		
 	</tr>
 </table>
 
 
-<form>
+<form action="/todo" method="get">
 	<button>ToDo一覧に戻る</button>
 </form>
 
 </body>
-</html>
+</html> 
 
 </body>
 

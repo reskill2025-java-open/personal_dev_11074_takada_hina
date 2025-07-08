@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "titles")
 public class Titles {
@@ -54,6 +56,7 @@ public class Titles {
 		this.title = title;
 	}
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public LocalDate getDeadline() {
 		return deadline;
 	}

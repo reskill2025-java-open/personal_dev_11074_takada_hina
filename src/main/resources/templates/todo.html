@@ -17,18 +17,18 @@
 		</tr>
 		<tr th:each="title:${titlesList}">
 			<td><a th:href="@{/todo/detail/{id}(id=${title.id})}">[[${title.title}]]</a></td>
-			<td>[[${title.deadline}]]</td>>
+			<td>[[${title.deadline}]]</td>
 			<td>[[${title.titleContents}]]</td>
 
 			<td>
-				<form>
+				<form th:action="@{/delete/{id}(id=${title.id})}" method="get">
 					<button>削除</button>
 				</form>
 			</td>
 
 		</tr>
 	</table>
-	<form>
+	<form action="/todo/new" method="get">
 		<button>ToDoを追加する</button>
 	</form>
 </body>
