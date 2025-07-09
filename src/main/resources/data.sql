@@ -5,11 +5,11 @@ VALUES
 ('鈴木一郎', 'test456');
 
 -- titles テーブルにデータを挿入するクエリ
-INSERT INTO titles(id, user_id, title, deadline, title_progress, title_contents)
+INSERT INTO titles(user_id, title, deadline, title_progress, title_contents)
 VALUES
-(1,1, '宿題', '2025-12-31', 0, '冬休みの宿題をやる'),
+(1, '宿題', '2025-12-31', 0, '冬休みの宿題をやる'),
 
-(2,2, '掃除', '2025-12-31', 0, '年末までに家の掃除をする');
+(2, '掃除', '2025-12-31', 0, '年末までに家の掃除をする');
 
 -- tasks テーブルにデータを挿入するクエリ
 INSERT INTO tasks (id, title_id, task_progress, task_title)

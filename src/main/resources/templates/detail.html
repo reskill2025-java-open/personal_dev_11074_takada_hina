@@ -1,66 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
+
 <body>
-<h1>ToDo詳細</h1>
+	<h1>ToDo詳細</h1>
 
-<table border="1">
-	<tr>
-		<th>タイトル</th>
-		<th>期限</th>
-		<th>内容</th>
-		<th>削除</th>
-	</tr>
-	<tr th:each="title:${titlesList}">
-		<td th:text="${title.title}"></td>
-		<td th:text="${title.deadline}"></td>
-		<td th:text="${title.titleContents}"></td>
-		<td>
-			<form th:action="@{/delete/{id}(id=${title.id})}" method="get">
-			<button>削除</button>
-			</form>
-		</td>
-		
-		<form action="/todo/edit" method="get">
-			
-			<input type="hidden" name="id" th:value="${title.id}" >
-			<input type="hidden" name="title" th:value="${title.title}" >
-			<input type="hidden" name="deadline" th:value="${title.deadline}" >
-			<input type="hidden" name="titleContents" th:value="${title.titleContents}" >
-			
-			<button>詳細を変更する</button>
-		</form>
-		
-	</tr>
-</table>
+	<table border="1">
+		<tr>
+			<th>タイトル</th>
+			<th>期限</th>
+			<th>内容</th>
+			<th>変更</th>
+			<th>削除</th>
+		</tr>
+		<tr th:each="title:${titlesList}">
+			<td th:text="${title.title}"></td>
+			<td th:text="${title.deadline}"></td>
+			<td th:text="${title.titleContents}"></td>
 
-<table border="1">
-	<tr>
-		<th>タスク</th><th>削除</th>
-	</tr>
-	<tr th:each="task:${tasksList}">
-		<td th:text="${task.taskTitle}"></td>
-	
-		<td>
-			<form th:action="@{/deleteTask/{id}(id=${task.id})}" method="get">
+			<td>
+				<form th:action="@{/todo/edit/{id}(id=${title.id})}" method="get">
+
+					<input type="hidden" name="id" th:value="${title.id}">
+					<input type="hidden" name="title" th:value="${title.title}">
+					<input type="hidden" name="deadline" th:value="${title.deadline}">
+					<input type="hidden" name="titleContents" th:value="${title.titleContents}">
+
+					<button>変更</button>
+				</form>
+			</td>
+			<td>
+				<form th:action="@{/delete/{id}(id=${title.id})}" method="get">
+					<button>削除</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+
+	<table border="1">
+		<tr>
+			<th>タスク</th>
+			<th>削除</th>
+		</tr>
+		<tr th:each="task:${tasksList}">
+			<td th:text="${task.taskTitle}"></td>
+
+			<td>
+				<form th:action="@{/deleteTask/{id}(id=${task.id})}" method="get">
 					<input type="hidden" name="titleId" th:value="${task.titleId}">
-			<button>削除</button>
-			</form>
-		</td>
-		
-	</tr>
-</table>
+					<button>削除</button>
+				</form>
+			</td>
+
+		</tr>
+	</table>
 
 
-<form action="/todo" method="get">
-	<button>ToDo一覧に戻る</button>
-</form>
+	<form action="/todo" method="get">
+		<button>ToDo一覧に戻る</button>
+	</form>
 
 </body>
-</html> 
+
+</html>
 
 </body>
 

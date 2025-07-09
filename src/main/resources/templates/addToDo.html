@@ -7,11 +7,13 @@
 <body>
 <h1>新規追加画面</h1>
 
-<form>
+<form action="/todo/add" method="post">
 	タイトル：<input type="text" name="title">
 	<br>
 	期限　　：<input type="date" name="deadline">
 	<br>
+	内容　　：<input type="text" name="titleContents">
+	<input type="hidden" name="titleProgress" value="0">
 
 	<h1>タスク</h1>
 	<button>タスクを追加</button>

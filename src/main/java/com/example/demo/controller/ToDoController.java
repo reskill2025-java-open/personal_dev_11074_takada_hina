@@ -77,29 +77,46 @@ public class ToDoController {
 		return "detail";
 	}
 
-	@GetMapping("/todo/edit") //編集画面を表示
+	//	@GetMapping("/todo/edit") //編集画面を表示
+	//	public String edit(
+	//			@RequestParam("id") Integer id,
+	//			@RequestParam("title") String title,
+	//			@RequestParam("deadline") LocalDate deadline,
+	//			@RequestParam("titleContents") String titleContents,
+	//			Model model) {
+	//
+	//		model.addAttribute("id", id);
+	//		model.addAttribute("title", title);
+	//		model.addAttribute("deadline", deadline);
+	//		model.addAttribute("titleContents", titleContents);
+	//
+	//		return "edit";
+	//	}
+
+	@GetMapping("/todo/edit/{id}") //todoの編集画面を表示
 	public String edit(
-			@RequestParam("id") Integer id,
-			@RequestParam("title") String title,
-			@RequestParam("deadline") LocalDate deadline,
-			@RequestParam("titleContents") String titleContents,
+			@PathVariable("id") Integer titleId,
 			Model model) {
 
-		model.addAttribute("id", id);
+		Titles title = titlesRepository.findById(titleId).get();
+		List<Task> tasksList = taskRepository.findByTitleId(titleId);
+
 		model.addAttribute("title", title);
-		model.addAttribute("deadline", deadline);
-		model.addAttribute("titleContents", titleContents);
+		model.addAttribute("taskList", tasksList);
 
 		return "edit";
 	}
 
-	@PostMapping("todo/update") //編集完了
+	@PostMapping("todo/update") //編集完了//まだタスク追加できない
 	public String update(
 
-			@RequestParam("id") Integer id,
-			@RequestParam("title") String title,
-			@RequestParam("deadline") LocalDate deadline,
-			@RequestParam("titleContents") String titleContents,
+			@RequestParam(name = "id", defaultValue = "") Integer id,
+			@RequestParam(name = "title", defaultValue = "") String title,
+			@RequestParam(name = "deadline", defaultValue = "") LocalDate deadline,
+			@RequestParam(name = "titleContents", defaultValue = "") String titleContents,
+			@RequestParam(name = "taskTitle", defaultValue = "") String taskTitle[],
+			@RequestParam(name = "taskId", defaultValue = "0") Integer taskId[],
+			//			@RequestParam(name = "addTasks", defaultValue = "") String addTask[],
 
 			Model model) {
 
@@ -108,14 +125,17 @@ public class ToDoController {
 		titles.setTitleContents(titleContents);
 		titles.setTitle(title);
 		titles.setDeadline(deadline);
+		titlesRepository.save(titles);//タイトルテーブルに保存
 
-		titlesRepository.save(titles);
+		//もとのタスクを編集する
+		for (int i = 0; i < taskId.length; i++) {
+			Task task = taskRepository.findById(taskId[i]).get();
+			task.setTaskTitle(taskTitle[i]);
+			taskRepository.save(task);//タスクテーブルに保存
+		}
 
-		System.out.println(account.getId());
 		List<Titles> titlesList = titlesRepository.findByUserId(account.getId());
 		model.addAttribute("titlesList", titlesList);
-
-		//		System.out.println("titles=" + titles);
 
 		return "todo";
 	}
@@ -123,6 +143,29 @@ public class ToDoController {
 	@GetMapping("/todo/new") //ToDo新規追加画面を表示する
 	public String addToDo() {
 		return "addToDo";
+	}
+
+	@PostMapping("/todo/add")
+	public String addToDo(
+
+			@RequestParam(name = "title", defaultValue = "") String title,
+			@RequestParam(name = "deadline", defaultValue = "") LocalDate deadline,
+			@RequestParam(name = "titleContents", defaultValue = "") String titleContents,
+			@RequestParam(name = "titleProgress", defaultValue = "") Integer titleProgress,
+
+			Model model) {
+
+		Titles titles = new Titles();
+
+		titles.setUserId(account.getId());
+		titles.setTitle(title);
+		titles.setDeadline(deadline);
+		titles.setTitleContents(titleContents);
+		titles.setTitleProgress(titleProgress);
+
+		titlesRepository.save(titles);
+
+		return "redirect:/todo";
 	}
 
 }

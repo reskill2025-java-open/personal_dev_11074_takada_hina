@@ -24,6 +24,18 @@ public class Task {
 	@Column(name = "task_title")
 	private String taskTitle;
 
+	public Task() {
+
+	}
+
+	public Task(Integer titleId, Integer taskProgress, String taskTitle) {
+
+		this.titleId = titleId;
+		this.taskProgress = taskProgress;
+		this.taskTitle = taskTitle;
+
+	}
+
 	public Integer getId() {
 		return id;
 	}

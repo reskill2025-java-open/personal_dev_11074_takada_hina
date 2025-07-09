@@ -13,12 +13,13 @@
 
     -- titles テーブルを作成するクエリ
     CREATE TABLE titles(
-    id INTEGER PRIMARY KEY,
+    id SERIAL NOT NULL,
     user_id INTEGER,
     title VARCHAR(20),
     deadline DATE,
     title_progress INTEGER,
-    title_contents VARCHAR(50)
+    title_contents VARCHAR(50),
+    PRIMARY KEY(id)
     );
 
     -- tasksテーブルを作成するクエリ
