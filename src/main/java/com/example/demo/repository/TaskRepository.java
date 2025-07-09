@@ -10,4 +10,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 
 	List<Task> findByTitleId(Integer titleId);
 
+	List<Task> findByTitleIdOrderById(Integer id);
+
 }

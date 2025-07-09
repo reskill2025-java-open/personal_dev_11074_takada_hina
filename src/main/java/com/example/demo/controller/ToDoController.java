@@ -141,11 +141,11 @@ public class ToDoController {
 		titlesRepository.save(titles);
 
 		//もとのタスクを編集する
-		//		for (int i = 0; i < taskId.length; i++) {
-		//			Task task = taskRepository.findById(taskId[i]).get();
-		//			task.setTaskTitle(taskTitle[i]);
-		//			taskRepository.save(task);//タスクテーブルに保存
-		//		}
+		for (int i = 0; i < taskId.length; i++) {
+			Task task = taskRepository.findById(taskId[i]).get();
+			task.setTaskTitle(taskTitle[i]);
+			taskRepository.save(task);
+		}
 
 		//		//新しいタスクの追加
 		//		for (int i = 0; i < addTask.length; i++) {
@@ -155,8 +155,11 @@ public class ToDoController {
 		//			}
 		//		}
 
-		List<Titles> titlesList = titlesRepository.findByUserId(account.getId());
-		model.addAttribute("titlesList", titlesList);
+		//		List<Titles> titlesList = titlesRepository.findByUserId(account.getId());
+		//		model.addAttribute("titlesList", titlesList);
+
+		List<Task> taskList = null;
+		taskList = taskRepository.findByTitleIdOrderById(titles.getId());
 
 		return "redirect:/todo";
 	}
