@@ -24,9 +24,10 @@
 
     -- tasksテーブルを作成するクエリ
     CREATE TABLE tasks(
-    id INTEGER PRIMARY KEY,
+    id SERIAL NOT NULL,
     title_id INTEGER,
     task_progress INTEGER,
-    task_title VARCHAR(20)
+    task_title VARCHAR(20),
+    PRIMARY KEY(id)
     );
 

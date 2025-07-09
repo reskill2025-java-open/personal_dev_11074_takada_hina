@@ -9,6 +9,8 @@
 <body>
 	<h1>編集画面</h1>
 
+	<h4>タイトル</h4>
+
 	<form action="/todo/update" method="post">
 
 		<table border="1">
@@ -25,24 +27,33 @@
 				<td><input type="text" name="titleContents" th:value="${title.titleContents}"></td>
 			</tr>
 
-			<input type="hidden" name="id" th:value="${id}">
+			<input type="hidden" name="id" th:value="${title.id}">
+			<input type="hidden" name="userId" th:value="${title.userId}">
+			<input type="hidden" name="titleProgress" th:value="${title.titleProgress}">
+		</table>
 
+		<h4>タスク</h4>
 
-
+		<table>
 			<tr th:each="task:${taskList}">
-				<th>タスク</th>
 				<td><input type="text" name="taskTitle" th:value="${task.taskTitle}"></td>
 				<input type="hidden" name="taskId" th:value="${task.id}">
 			</tr>
 
-
-
-
-
 		</table>
+
+
+
+<!--		<div id="newTasks">-->
+
+<!--		</div>-->
+
+<!--		<button type="button" id="addButton">タスクを追加する</button><br>-->
 
 		<button>完了</button>
 	</form>
+	<!--	Javascript読み込み-->
+	<script th:src="@{/js/taskAdd.Js}"></script>
 
 </body>
 

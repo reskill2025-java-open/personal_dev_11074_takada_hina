@@ -68,8 +68,12 @@ public class ToDoController {
 	public String detail(
 			@PathVariable("id") Integer id, Model model) {
 
-		List<Titles> titlesList = titlesRepository.findByUserId(account.getId());
-		model.addAttribute("titlesList", titlesList);
+		//		List<Titles> titlesList = titlesRepository.findById(id);
+		//		model.addAttribute("titlesList", titlesList);
+
+		Titles title = new Titles();
+		title = titlesRepository.findById(id).get();
+		model.addAttribute("title", title);
 
 		List<Task> tasksList = taskRepository.findByTitleId(id);
 		model.addAttribute("tasksList", tasksList);
@@ -110,21 +114,30 @@ public class ToDoController {
 	@PostMapping("todo/update") //編集完了//まだタスク追加できない
 	public String update(
 
-			@RequestParam(name = "id", defaultValue = "") Integer id,
+			@RequestParam(name = "id", defaultValue = "") Integer id, //追加
+			@RequestParam(name = "userId", defaultValue = "") Integer userId, //追加
 			@RequestParam(name = "title", defaultValue = "") String title,
 			@RequestParam(name = "deadline", defaultValue = "") LocalDate deadline,
+			@RequestParam(name = "titleProgress", defaultValue = "") Integer titleProgress, //追加
 			@RequestParam(name = "titleContents", defaultValue = "") String titleContents,
 			@RequestParam(name = "taskTitle", defaultValue = "") String taskTitle[],
 			@RequestParam(name = "taskId", defaultValue = "0") Integer taskId[],
-			//			@RequestParam(name = "addTasks", defaultValue = "") String addTask[],
+			@RequestParam(name = "addTasks", defaultValue = "") String addTask[],
 
 			Model model) {
 
 		Titles titles = titlesRepository.findById(id).get();
 
-		titles.setTitleContents(titleContents);
+		System.out.println("Id=" + id);
+		System.out.println("Id=" + id);
+
+		//		titles.setId(id);
+		titles.setUserId(userId);
 		titles.setTitle(title);
 		titles.setDeadline(deadline);
+		titles.setTitleProgress(titleProgress);
+		titles.setTitleContents(titleContents);
+
 		titlesRepository.save(titles);//タイトルテーブルに保存
 
 		//もとのタスクを編集する
@@ -134,10 +147,18 @@ public class ToDoController {
 			taskRepository.save(task);//タスクテーブルに保存
 		}
 
+		//		//新しいタスクの追加
+		//		for (int i = 0; i < addTask.length; i++) {
+		//			if (!addTask[i].equals("")) {
+		//				Task newTask = new Task(titles.getId(), 0, addTask[i]);
+		//				taskRepository.save(newTask);
+		//			}
+		//		}
+
 		List<Titles> titlesList = titlesRepository.findByUserId(account.getId());
 		model.addAttribute("titlesList", titlesList);
 
-		return "todo";
+		return "redirect:/todo";
 	}
 
 	@GetMapping("/todo/new") //ToDo新規追加画面を表示する
