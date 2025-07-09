@@ -126,26 +126,26 @@ public class ToDoController {
 
 			Model model) {
 
-		Titles titles = titlesRepository.findById(id).get();
+		Titles titles = new Titles();//新しく上書きして新規挿入
 
 		System.out.println("Id=" + id);
 		System.out.println("Id=" + id);
 
-		//		titles.setId(id);
+		titles.setId(id);
 		titles.setUserId(userId);
 		titles.setTitle(title);
 		titles.setDeadline(deadline);
 		titles.setTitleProgress(titleProgress);
 		titles.setTitleContents(titleContents);
 
-		titlesRepository.save(titles);//タイトルテーブルに保存
+		titlesRepository.save(titles);
 
 		//もとのタスクを編集する
-		for (int i = 0; i < taskId.length; i++) {
-			Task task = taskRepository.findById(taskId[i]).get();
-			task.setTaskTitle(taskTitle[i]);
-			taskRepository.save(task);//タスクテーブルに保存
-		}
+		//		for (int i = 0; i < taskId.length; i++) {
+		//			Task task = taskRepository.findById(taskId[i]).get();
+		//			task.setTaskTitle(taskTitle[i]);
+		//			taskRepository.save(task);//タスクテーブルに保存
+		//		}
 
 		//		//新しいタスクの追加
 		//		for (int i = 0; i < addTask.length; i++) {
