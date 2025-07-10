@@ -120,9 +120,9 @@ public class ToDoController {
 			@RequestParam(name = "deadline", defaultValue = "") LocalDate deadline,
 			@RequestParam(name = "titleProgress", defaultValue = "") Integer titleProgress, //追加
 			@RequestParam(name = "titleContents", defaultValue = "") String titleContents,
-			@RequestParam(name = "taskTitle", defaultValue = "") String taskTitle[],
-			@RequestParam(name = "taskId", defaultValue = "0") Integer taskId[],
-			@RequestParam(name = "addTasks", defaultValue = "") String addTask[],
+			@RequestParam(name = "taskTitle", defaultValue = "") String taskTitle[], //taskの名前
+			@RequestParam(name = "taskId", defaultValue = "0") Integer taskId[], //タスクid
+			@RequestParam(name = "addTasks", defaultValue = "") String addTask[], //
 
 			Model model) {
 
@@ -142,18 +142,33 @@ public class ToDoController {
 
 		//もとのタスクを編集する
 		for (int i = 0; i < taskId.length; i++) {
+
+			System.out.println("既存編集for文に入ってる？");
+
 			Task task = taskRepository.findById(taskId[i]).get();
+
+			System.out.println("ああああああ");
+
 			task.setTaskTitle(taskTitle[i]);
+
+			System.out.println("あ");
+
 			taskRepository.save(task);
 		}
 
-		//		//新しいタスクの追加
-		//		for (int i = 0; i < addTask.length; i++) {
-		//			if (!addTask[i].equals("")) {
-		//				Task newTask = new Task(titles.getId(), 0, addTask[i]);
-		//				taskRepository.save(newTask);
-		//			}
-		//		}
+		//新しいタスクの追加
+		for (int i = 0; i < addTask.length; i++) {
+
+			System.out.println("編集for文に入ってる？");
+
+			if (!addTask[i].equals("")) {
+
+				System.out.println("編集if文に入ってる？");
+
+				Task newTask = new Task(titles.getId(), 0, addTask[i]);
+				taskRepository.save(newTask);
+			}
+		}
 
 		//		List<Titles> titlesList = titlesRepository.findByUserId(account.getId());
 		//		model.addAttribute("titlesList", titlesList);
@@ -169,18 +184,24 @@ public class ToDoController {
 		return "addToDo";
 	}
 
-	@PostMapping("/todo/add")
+	@PostMapping("/todo/add") //新規追加処理
 	public String addToDo(
 
+			@RequestParam(name = "id", defaultValue = "") Integer id,
 			@RequestParam(name = "title", defaultValue = "") String title,
 			@RequestParam(name = "deadline", defaultValue = "") LocalDate deadline,
 			@RequestParam(name = "titleContents", defaultValue = "") String titleContents,
 			@RequestParam(name = "titleProgress", defaultValue = "") Integer titleProgress,
-
+			@RequestParam(name = "taskTitle", defaultValue = "") String taskTitle,
+			@RequestParam(name = "taskProgress", defaultValue = "") Integer taskProgress,
+			@RequestParam(name = "tasks", defaultValue = "") String tasks[],
+			@RequestParam(name = "taskId", defaultValue = "0") Integer taskId[],
+			@RequestParam(name = "addTasks", defaultValue = "") String addTasks[],
 			Model model) {
 
 		Titles titles = new Titles();
 
+		titles.setId(id);
 		titles.setUserId(account.getId());
 		titles.setTitle(title);
 		titles.setDeadline(deadline);
@@ -188,6 +209,24 @@ public class ToDoController {
 		titles.setTitleProgress(titleProgress);
 
 		titlesRepository.save(titles);
+
+		//新しいタスクの追加
+		for (int i = 0; i < addTasks.length; i++) {
+
+			System.out.println("新規追加for文に入ってる？");
+
+			if (!addTasks[i].equals("")) {
+
+				System.out.println("新規追加if文に入ってる？");
+
+				Task newTask = new Task(titles.getId(), 0, addTasks[i]);
+				taskRepository.save(newTask);
+
+				List<Task> taskList = null;
+				taskList = taskRepository.findByTitleIdOrderById(titles.getId());
+
+			}
+		}
 
 		return "redirect:/todo";
 	}

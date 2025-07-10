@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
+
 <body>
-<h1>新規追加画面</h1>
+	<h1>新規追加画面</h1>
 
-<form action="/todo/add" method="post">
-	タイトル：<input type="text" name="title">
-	<br>
-	期限　　：<input type="date" name="deadline">
-	<br>
-	内容　　：<input type="text" name="titleContents">
-	<input type="hidden" name="titleProgress" value="0">
+	<form action="/todo/add" method="post">
+		タイトル：<input type="text" name="title">
+		<br>
+		期限　　：<input type="date" name="deadline">
+		<br>
+		内容　　：<input type="text" name="titleContents">
+		<input type="hidden" name="titleProgress" value="0">
 
-	<h1>タスク</h1>
-	<button>タスクを追加</button>
-	<br>
-	<button>新規追加</button>
+		<h2>タスクの追加</h2>
+		<div id="newTasks">
+		</div>
+
+		<button type="button" id="addButton">タスクを追加する</button><br>
+		<br>
+		<button>新規追加</button>
+
+	</form>
 	
-</form>
+	<!--	Javascript読み込み-->
+		<script th:src="@{/js/taskAdd.Js}"></script>
 
 </body>
+
 </html>
