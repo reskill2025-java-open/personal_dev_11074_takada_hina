@@ -71,31 +71,71 @@ public class ToDoController {
 		//		List<Titles> titlesList = titlesRepository.findById(id);
 		//		model.addAttribute("titlesList", titlesList);
 
+		//sessionに管理されたLoginIｄと同じIDのToDo一覧のリストを作る
+		List<Titles> titleList = titlesRepository.findByUserId(account.getId());
+
+		//進捗度の更新
+		for (Titles title : titleList) {
+			int tasksProgress = 0;
+			int todoProgress = 0;
+			List<Task> taskList = taskRepository.findByTitleId(title.getId());
+			for (Task task : taskList) {
+				tasksProgress += task.getTaskProgress();
+			}
+			todoProgress = tasksProgress * 100 / (taskList.size() * 5);
+			title.setTitleProgress(todoProgress);
+			titlesRepository.save(title);
+		}
+
 		Titles title = new Titles();
 		title = titlesRepository.findById(id).get();
 		model.addAttribute("title", title);
 
-		List<Task> tasksList = taskRepository.findByTitleId(id);
+		List<Task> tasksList = taskRepository.findByTitleIdOrderById(id);
 		model.addAttribute("tasksList", tasksList);
 
 		return "detail";
 	}
 
-	//	@GetMapping("/todo/edit") //編集画面を表示
-	//	public String edit(
-	//			@RequestParam("id") Integer id,
-	//			@RequestParam("title") String title,
-	//			@RequestParam("deadline") LocalDate deadline,
-	//			@RequestParam("titleContents") String titleContents,
-	//			Model model) {
-	//
-	//		model.addAttribute("id", id);
-	//		model.addAttribute("title", title);
-	//		model.addAttribute("deadline", deadline);
-	//		model.addAttribute("titleContents", titleContents);
-	//
-	//		return "edit";
-	//	}
+	@GetMapping("/todo/change/progress") //進捗度を更新する
+	public String changeProgress(
+			@RequestParam("id") Integer id,
+			@RequestParam("progress") Integer progress, //selectで飛んできたprogressをキャッチ
+			@RequestParam("titleId") Integer titleId,
+			Model model) {
+
+		Task task = taskRepository.findById(id).get();//taskテーブルからidで探してtaskに入れる
+		task.setTaskProgress(progress);//とってきたidの元の進捗をselectで選ばれた進捗に変更
+		taskRepository.save(task);//taskに保存
+
+		List<Task> taskList = null;
+		taskList = taskRepository.findByTitleIdOrderById(titleId);
+		//titleIdで指定して探してきたtaskをtaskListに入れる？
+
+		int progresssSum = 0;//各タスクの進捗の合計
+		int progressAll = taskList.size() * 5;//taskListの中の個数(タスク数)×5
+		int progressResult = 0;
+
+		for (Task i : taskList) {//拡張for文//タスク全体の進捗を合計
+
+			/*
+			 * ループが始まると、リストに入っている
+			 * 各 Task オブジェクトを順に変数 i に取り出して処理
+			 */
+
+			progresssSum = progresssSum + i.getTaskProgress();
+
+		}
+
+		progressResult = (progresssSum * 100) / progressAll;
+		Titles title = titlesRepository.findById(titleId).get();
+
+		title.setTitleProgress(progressResult);
+
+		titlesRepository.save(title);
+
+		return "redirect:/todo/detail/" + titleId;
+	}
 
 	@GetMapping("/todo/edit/{id}") //todoの編集画面を表示
 	public String edit(

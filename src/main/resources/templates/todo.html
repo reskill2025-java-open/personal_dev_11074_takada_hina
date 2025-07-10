@@ -12,13 +12,15 @@
 		<tr>
 			<th>タイトル</th>
 			<th>期限</th>
+			<th>進捗</th>
 			<th>内容</th>
 			<th>削除</th>
 		</tr>
 		<tr th:each="title:${titlesList}">
 			<td><a th:href="@{/todo/detail/{id}(id=${title.id})}">[[${title.title}]]</a></td>
-			<td>[[${title.deadline}]]</td>
-			<td>[[${title.titleContents}]]</td>
+			<td th:text=${title.deadline}></td>
+			<td th:text=${title.titleProgress}></td>
+			<td th:text=${title.titleContents}></td>
 
 			<td>
 				<form th:action="@{/delete/{id}(id=${title.id})}" method="get">
