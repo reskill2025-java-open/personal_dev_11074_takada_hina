@@ -5,26 +5,29 @@
 
     -- users テーブルを作成するクエリ
     CREATE TABLE users (
-    id INTEGER PRIMARY KEY,
+    id SERIAL NOT NULL,
     name VARCHAR(20),
-    password VARCHAR(50)
+    password VARCHAR(50),
+    PRIMARY KEY(id)
     );
 
     -- titles テーブルを作成するクエリ
     CREATE TABLE titles(
-    id INTEGER PRIMARY KEY,
+    id SERIAL NOT NULL,
     user_id INTEGER,
     title VARCHAR(20),
     deadline DATE,
     title_progress INTEGER,
-    title_contents VARCHAR(50)
+    title_contents VARCHAR(50),
+    PRIMARY KEY(id)
     );
 
     -- tasksテーブルを作成するクエリ
     CREATE TABLE tasks(
-    id INTEGER PRIMARY KEY,
+    id SERIAL NOT NULL,
     title_id INTEGER,
     task_progress INTEGER,
-    task_title VARCHAR(20)
+    task_title VARCHAR(20),
+    PRIMARY KEY(id)
     );
 

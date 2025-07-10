@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+	
+	<header>
+	    <h1>わたちがやる</h1>
+	    <nav>
+			[[${@account.name}]]さん<br>お疲れさまです<br>
+			<a href="/logout">ログアウト</a>
+	    </nav>
+	</header>
+	
+	
+	<h2>ToDo一覧</h2>
+	<table border="1">
+		<tr>
+			<th>タイトル</th>
+			<th>期限</th>
+			<th>進捗</th>
+			<th>内容</th>
+			<th>削除</th>
+		</tr>
+		<tr th:each="title:${titlesList}">
+			<td><a th:href="@{/todo/detail/{id}(id=${title.id})}">[[${title.title}]]</a></td>
+			<td th:text=${title.deadline}></td>
+			<td th:text=${title.titleProgress}></td>
+			<td th:text=${title.titleContents}></td>
+
+			<td>
+				<form th:action="@{/delete/{id}(id=${title.id})}" method="get">
+					<button>削除</button>
+				</form>
+			</td>
+
+		</tr>
+	</table>
+	
+	
+	
+	<form action="/todo/new" method="get">
+		<button>ToDoを追加する</button>
+	</form>
+	
+	<footer class="footer-2">
+		<small>group c</small>
+	</footer>
+	
+</body>
+
+</html>

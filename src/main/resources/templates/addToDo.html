@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+	
+	<header>
+	    <h1>わたちがやる</h1>
+	    <nav>
+			[[${@account.name}]]さん<br>お疲れさまです<br>
+			<a href="/logout">ログアウト</a>
+	    </nav>
+	</header>
+
+	
+	<h1>新規追加画面</h1>
+
+	<form action="/todo/add" method="post">
+		タイトル：<input type="text" name="title">
+		<br>
+		期限　　：<input type="date" name="deadline">
+		<br>
+		内容　　：<input type="text" name="titleContents">
+		<input type="hidden" name="titleProgress" value="0">
+
+		<h2>タスクの追加</h2>
+		<p>タスクは20文字以内で入力してください。</p>
+		<div id="newTasks" maxlength='20'>
+		</div>
+
+		<button type="button" id="addButton">タスクを追加する</button><br>
+		<br>
+		<button>新規追加</button>
+
+	</form>
+	
+	<a href="/logout">ログアウト</a>
+	<footer class="footer-2">
+			<small>group c</small>
+		</footer>
+	<!--	Javascript読み込み-->
+		<script th:src="@{/js/taskAdd.Js}"></script>
+
+</body>
+
+</html>
