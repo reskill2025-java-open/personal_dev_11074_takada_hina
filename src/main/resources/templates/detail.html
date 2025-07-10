@@ -4,9 +4,18 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 
 <body>
+	<header>
+	    <h1>わたちがやる</h1>
+	    <nav>
+			[[${@account.name}]]さん<br>お疲れさまです<br>
+			<a href="/logout">ログアウト</a>
+	    </nav>
+	</header>
+
 	<h1>ToDo詳細</h1>
 
 	<table border="1">
@@ -38,10 +47,10 @@
 		</tr>
 	</table>
 
-	<h3>このタイトルの進捗度<br>
-		[[${title.titleProgress}]]%
+	<h3>このToDoの進捗度</h3>
+		<h1>[[${title.titleProgress}]]%</h1>
 
-	</h3>
+	
 
 
 
@@ -89,7 +98,11 @@
 	<form action="/todo" method="get">
 		<button>ToDo一覧に戻る</button>
 	</form>
-
+	
+	<a href="/logout">ログアウト</a>
+	<footer class="footer-2">
+			<small>group c</small>
+		</footer>
 </body>
 
 </html>

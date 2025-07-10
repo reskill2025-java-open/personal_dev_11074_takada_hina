@@ -25,8 +25,16 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 
-	@GetMapping("/login")
+	@GetMapping("/login") //ログイン画面を表示
 	public String index() {
+
+		session.invalidate();
+
+		return "login";
+	}
+
+	@GetMapping("/logout") //ログアウトする
+	public String logout() {
 		return "login";
 	}
 

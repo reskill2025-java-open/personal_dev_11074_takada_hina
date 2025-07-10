@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
+
 <body>
-<h1>新規登録</h1>
-<form action="/users/add" method="post">
-名前:<input type="text" name="name">
-パスワード:<input type="text" name="password">
-<button>登録する</button>
-</form>
+	<header>
+		    <h1>わたちがやる</h1>
+		    <h3>新規登録</h3>
+		</header>
+	<form action="/users/add" method="post">
+		<input type="text" name="name" placeholder="なまえ">
+		<br>
+		<input type="text" name="password" placeholder="パスワード">
+		<br>
+		<button>登録する</button>
+	</form>
+	<footer class="footer-2">
+			<small>group c</small>
+		</footer>
 </body>
+
 </html>

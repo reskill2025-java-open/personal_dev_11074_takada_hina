@@ -4,10 +4,21 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 
 <body>
-	<h1>ToDo一覧</h1>
+	
+	<header>
+	    <h1>わたちがやる</h1>
+	    <nav>
+			[[${@account.name}]]さん<br>お疲れさまです<br>
+			<a href="/logout">ログアウト</a>
+	    </nav>
+	</header>
+	
+	
+	<h2>ToDo一覧</h2>
 	<table border="1">
 		<tr>
 			<th>タイトル</th>
@@ -30,9 +41,17 @@
 
 		</tr>
 	</table>
+	
+	
+	
 	<form action="/todo/new" method="get">
 		<button>ToDoを追加する</button>
 	</form>
+	
+	<footer class="footer-2">
+		<small>group c</small>
+	</footer>
+	
 </body>
 
 </html>
