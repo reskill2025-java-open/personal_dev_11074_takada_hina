@@ -8,13 +8,14 @@
 </head>
 
 <body>
-	
+
 	<header>
-	    <h1>わたちがやる</h1>
-	    <nav>
-			[[${@account.name}]]さん<br>お疲れさまです<br>
-			<a href="/logout">ログアウト</a>
-	    </nav>
+		<h1>MileStone</h1>
+		<nav>
+			[[${@account.name}]]さん　
+			<span id="greeting"></span>
+			<p><a href="/logout">ログアウト</a></p>
+		</nav>
 	</header>
 
 	<h1>編集画面</h1>
@@ -23,34 +24,31 @@
 
 	<form action="/todo/update" method="post">
 
-		<table>
-			<tr>
-				
-				<td><input type="text" name="title" th:value="${title.title}" class="textbox-3"></td>
-			</tr>
-			<tr>
-				
-				<td><input type="date" name="deadline" th:value="${title.deadline}" class="textbox-3"></td>
-			</tr>
-			<tr>
-				
-				<td><input type="text" name="titleContents" th:value="${title.titleContents}" class="textbox-3"></td>
-			</tr>
 
-			<input type="hidden" name="id" th:value="${title.id}">
-			<input type="hidden" name="userId" th:value="${title.userId}">
-			<input type="hidden" name="titleProgress" th:value="${title.titleProgress}">
-		</table>
+
+		<input type="text" name="title" th:value="${title.title}" class="textbox-3" maxlength=20>
+
+		<br>
+		<input type="date" name="deadline" th:value="${title.deadline}" class="textbox-3" maxlength=20>
+
+		<br>
+		<input type="text" name="titleContents" th:value="${title.titleContents}" class="textbox-3" maxlength=20>
+
+
+		<input type="hidden" name="id" th:value="${title.id}">
+		<input type="hidden" name="userId" th:value="${title.userId}">
+		<input type="hidden" name="titleProgress" th:value="${title.titleProgress}">
+
 
 		<h4>タスク</h4>
 
-		<table>
-			<tr th:each="task:${taskList}">
-				<td><input type="text" name="taskTitle" th:value="${task.taskTitle}" class="textbox-3"></td>
-				<input type="hidden" name="taskId" th:value="${task.id}" class="textbox-3">
-			</tr>
 
-		</table>
+		<p th:each="task:${taskList}">
+			<input type="text" name="taskTitle" th:value="${task.taskTitle}" class="textbox-3" maxlength=20>
+			<input type="hidden" name="taskId" th:value="${task.id}">
+		</p>
+
+
 
 		<h2>タスクの追加</h2>
 		<div id="newTasks">
@@ -60,14 +58,20 @@
 
 		<button>完了</button>
 	</form>
-	
-	<a href="/logout">ログアウト</a>
-	<footer class="footer-2">
-			<small>group c</small>
-		</footer>
-	
+
+		
+				<small>group c</small>
+			
+
 	<!--	Javascript読み込み-->
 	<script th:src="@{/js/taskAdd.Js}"></script>
+
+	<!--	時間で変わるメッセージを表示するJavascript読み込み-->
+	<script th:src="@{/js/hourMessage.Js}"></script>
+
+	<!--	文字数制限Javascript読み込み-->
+	<script th:src="@{/js/mojiMax.Js}"></script>
+
 
 </body>
 

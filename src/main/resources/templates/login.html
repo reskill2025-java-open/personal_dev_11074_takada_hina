@@ -9,34 +9,39 @@
 
 <body>
 	<header>
-		<h1>わたちがやる</h1>
-		<h3>ログイン画面</h3>
+		<h1>MileStone</h1>
+		<p>ようこそ</p>
 	</header>
 
-
+<h2>ログイン画面</h2>
 
 	<th:block th:if="${msg}">
 
 		<p th:text="${msg}"></p>
 
 	</th:block>
-	<label>
-	    <span class="textbox-3-label">ラベルの例</span>
+	
+	   
 	   
 	
 	<form action="/login" method="post">
-		<input type="text" name="name" class="textbox-3">
+		<input type="text" name="name" class="textbox-3" placeholder="なまえ" maxlength=20>
 		<br>
-		<input type="text" name="password" class="textbox-3">
+		<input type="text" name="password" class="textbox-3" placeholder="password" maxlength=20>
 		<br>
 		<button>ログイン</button>
 		<br>
 		<a href="/users/new">新規登録</a>
 	</form>
 </label>
-<footer class="footer-2">
+
 		<small>group c</small>
-	</footer>
+	
+	
+	<!--	文字数制限Javascript読み込み-->
+				<script th:src="@{/js/mojiMax.Js}"></script>
+
+	
 </body>
 
 </html>

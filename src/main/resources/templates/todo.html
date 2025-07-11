@@ -10,15 +10,24 @@
 <body>
 	
 	<header>
-	    <h1>わたちがやる</h1>
+	    <h1>MileStone</h1>
 	    <nav>
-			[[${@account.name}]]さん<br>お疲れさまです<br>
-			<a href="/logout">ログアウト</a>
+			[[${@account.name}]]さん　
+			<span id="greeting"></span>
+			<p><a href="/logout">ログアウト</a></p>
 	    </nav>
 	</header>
 	
 	
 	<h2>ToDo一覧</h2>
+	
+	<th:block th:if="${nullMsg}">
+
+				<p th:text="${nullMsg}"></p>
+
+			</th:block>
+
+	
 	<table border="1">
 		<tr>
 			<th>タイトル</th>
@@ -45,12 +54,15 @@
 	
 	
 	<form action="/todo/new" method="get">
-		<button>ToDoを追加する</button>
+		<button class="button-2">ToDoを追加する</button>
 	</form>
 	
-	<footer class="footer-2">
+	
 		<small>group c</small>
-	</footer>
+	
+	
+	<!--	Javascript読み込み-->
+		<script th:src="@{/js/hourMessage.Js}"></script>
 	
 </body>
 

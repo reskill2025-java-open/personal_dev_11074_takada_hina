@@ -8,43 +8,62 @@
 </head>
 
 <body>
-	
-	<header>
-	    <h1>わたちがやる</h1>
-	    <nav>
-			[[${@account.name}]]さん<br>お疲れさまです<br>
-			<a href="/logout">ログアウト</a>
-	    </nav>
-	</header>
 
-	
+	<header>
+			    <h1>MileStone</h1>
+			    <nav>
+					[[${@account.name}]]さん　
+					<span id="greeting"></span>
+					<p><a href="/logout">ログアウト</a></p>
+			    </nav>
+			</header>
+
+
 	<h1>新規追加画面</h1>
+	
+	<th:block th:if="${addNewMsg}">
+
+			<p th:text="${addNewMsg}"></p>
+
+		</th:block>
 
 	<form action="/todo/add" method="post">
-		タイトル：<input type="text" name="title">
+		<input type="text" name="title" class="textbox-3" placeholder="ToDoタイトル">
 		<br>
-		期限　　：<input type="date" name="deadline">
+		<input type="date" name="deadline" class="textbox-3">
 		<br>
-		内容　　：<input type="text" name="titleContents">
+		<input type="text" name="titleContents" class="textbox-3" placeholder="内容">
 		<input type="hidden" name="titleProgress" value="0">
 
+
+
 		<h2>タスクの追加</h2>
-		<p>タスクは20文字以内で入力してください。</p>
-		<div id="newTasks" maxlength='20'>
+		タスクは20文字以内で入力してください。
+		<div id="newTasks">
+			<label><input type="text" name="addTasks" 
+				placeholder="新規タスク" class="textbox-3" maxlength=20></label>
 		</div>
 
-		<button type="button" id="addButton">タスクを追加する</button><br>
+		<button type="button" id="addButton">タスクを追加</button><br>
 		<br>
-		<button>新規追加</button>
+		<button>登録</button>
 
 	</form>
 	
-	<a href="/logout">ログアウト</a>
-	<footer class="footer-2">
-			<small>group c</small>
-		</footer>
+	<a href="/todo">ToDo一覧に戻る</a>
+
+	
+		<small>group c</small>
+	
 	<!--	Javascript読み込み-->
-		<script th:src="@{/js/taskAdd.Js}"></script>
+	<script th:src="@{/js/taskAdd.Js}"></script>
+
+	<!--	時間で変わるメッセージを表示するJavascript読み込み-->
+	<script th:src="@{/js/hourMessage.Js}"></script>
+
+	<!--	文字数制限Javascript読み込み-->
+				<script th:src="@{/js/mojiMax.Js}"></script>
+
 
 </body>
 

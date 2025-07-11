@@ -9,12 +9,13 @@
 
 <body>
 	<header>
-	    <h1>わたちがやる</h1>
-	    <nav>
-			[[${@account.name}]]さん<br>お疲れさまです<br>
-			<a href="/logout">ログアウト</a>
-	    </nav>
-	</header>
+		    <h1>MileStone</h1>
+		    <nav>
+				[[${@account.name}]]さん　
+				<span id="greeting"></span>
+				<p><a href="/logout">ログアウト</a></p>
+		    </nav>
+		</header>
 
 	<h1>ToDo詳細</h1>
 
@@ -54,7 +55,12 @@
 
 
 
+		<th:block th:if="${deleteMsg}">
 
+				<p th:text="${deleteMsg}"></p>
+
+			</th:block>
+		
 	<table border="1">
 		<tr>
 			<th>タスク</th>
@@ -79,7 +85,7 @@
 				<input type="hidden" name="titleId" th:value="${task.titleId}">
 
 				
-					<button>更新</button>
+					<button>進捗度を更新する</button>
 				</form>
 
 			</td>
@@ -95,14 +101,15 @@
 	</table>
 
 
-	<form action="/todo" method="get">
-		<button>ToDo一覧に戻る</button>
-	</form>
+	<a href="/todo">ToDo一覧に戻る</a>
 	
-	<a href="/logout">ログアウト</a>
-	<footer class="footer-2">
+	
 			<small>group c</small>
-		</footer>
+		
+		
+		<!--	時間で変わるメッセージを表示するJavascript読み込み-->
+			<script th:src="@{/js/hourMessage.Js}"></script>
+		
 </body>
 
 </html>

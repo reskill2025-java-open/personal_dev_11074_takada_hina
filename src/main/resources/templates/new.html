@@ -9,19 +9,35 @@
 
 <body>
 	<header>
-		    <h1>わたちがやる</h1>
-		    <h3>新規登録</h3>
-		</header>
-	<form action="/users/add" method="post">
-		<input type="text" name="name" placeholder="なまえ">
-		<br>
-		<input type="text" name="password" placeholder="パスワード">
-		<br>
-		<button>登録する</button>
-	</form>
-	<footer class="footer-2">
+		<h1>MileStone</h1>
+		<p>はじめまして</p>
+	</header>
+
+	<h2>新規登録</h1>
+
+		<th:block th:if="${msg}">
+
+			<p th:text="${msg}"></p>
+
+		</th:block>
+
+		<form action="/users/add" method="post">
+			<input type="text" name="name" placeholder="なまえ" class="textbox-3" maxlength=20>
+			<br>
+			<input type="text" name="password" placeholder="パスワード" class="textbox-3" maxlength=20>
+			<br>
+			<button>登録する</button>
+		</form>
+
+		<a href="/login">ログイン画面に戻る</a>
+
+		
 			<small>group c</small>
-		</footer>
+		
+
+		<!--	文字数制限Javascript読み込み-->
+		<script th:src="@{/js/mojiMax.Js}"></script>
+
 </body>
 
 </html>

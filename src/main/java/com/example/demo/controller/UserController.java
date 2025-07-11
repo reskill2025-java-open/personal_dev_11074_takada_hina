@@ -44,7 +44,7 @@ public class UserController {
 			@RequestParam(name = "password", defaultValue = "") String password, Model model) {
 
 		if (name.equals("") || password.equals("")) {
-			model.addAttribute("msg", "入力してください。");
+			model.addAttribute("msg", "名前とパスワードを入力してください。");
 			return "login";
 		} else {
 
@@ -74,13 +74,19 @@ public class UserController {
 			@RequestParam(name = "password", defaultValue = "") String password,
 			Model model) {
 
-		User user = new User();
-		user.setName(name);
-		user.setPassword(password);
+		if (name.equals("") || password.equals("")) {
+			model.addAttribute("msg", "名前とパスワードを入力してください。");
+			return "new";
+		} else {
 
-		userRepository.save(user);
+			User user = new User();
+			user.setName(name);
+			user.setPassword(password);
 
-		return "redirect:/login";
+			userRepository.save(user);
+
+			return "redirect:/login";
+		}
 	}
 
 }

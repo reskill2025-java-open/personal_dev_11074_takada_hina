@@ -23,8 +23,6 @@
 }
 
 
-
-
 /* タスクを増やすボタン */
 #newTasks {
 	padding: 8px 8px;
@@ -44,22 +42,43 @@ body {
 
 /* ヘッダー、ナビゲーションメニュー、フッター */
 header,
-nav,
-footer {
+nav
+ {
+
+	
+	    
 	background-color: rgb(102, 181, 60);
 	/* 背景色 */
 	color: #ffffff;
 	/* 文字色 */
 	padding-top: 5px;
-	/* 内側余白(上) */
+/*	 内側余白(上) */
 	padding-bottom: 5px;
-	/* 内側余白(下) */
+/*	 内側余白(下) */
+	
 }
 
-/*.footer-2 {*/
-/*	margin-top: 160px;*/
-	
+/*footer{*/
+/*	background-color: rgb(102, 181, 60);*/
+/*		 背景色 */
+/*		color: #ffffff;*/
+/*		 文字色 */
+/*		position: fixed;*/
+/*		  left: 0;*/
+/*		  bottom: 0;*/
+/*		  width: 100%;*/
 /*}*/
+
+
+small {
+	font-size: .8em;
+	color: rgb(102, 181, 60);
+	max-width: 800px;
+	padding: 0;
+	text-align: center;
+	margin: 0 auto;
+	font-weight: bold;
+}
 
 
 
@@ -78,7 +97,7 @@ header h1 {
 
 /* 仕切り線 */
 hr {
-	border-top: 2px dashed #7d8bae;
+	border-top: 2px dashed rgb(132, 177, 122);
 }
 
 /* メイン */
@@ -102,27 +121,29 @@ table {
 	min-width: 800px;
 }
 
-table{
-  border-collapse:collapse;
-  margin:0 auto;
-  color:rgb(0, 255, 0);
+table {
+	border-collapse: collapse;
+	margin: 0 auto;
+	color: rgb(0, 64, 0);
 }
-tr:last-child td{
-  border-bottom:2px solid #005ab3;
+
+tr:last-child td {
+	border-bottom: 2px solid rgb(50, 177, 1);
 }
-td,th{
-  padding:10px;
+
+td,
+th {
+	padding: 10px;
 }
-tr:first-child{
-    background-image: linear-gradient(
-    -45deg,
-    #C6E6FB 15%, #fff 15%,
-    #fff 25%, #C6E6FB 25%,
-    #C6E6FB 65%, #fff 65%,
-    #fff 75%, #C6E6FB 75%,
-    #C6E6FB
-  );
-  background-size: 15px 15px;
+
+tr:first-child {
+	background-image: linear-gradient(-45deg,
+			rgb(213, 251, 198) 15%, #fff 15%,
+			#fff 25%, rgb(213, 251, 198) 25%,
+			rgb(213, 251, 198) 65%, #fff 65%,
+			#fff 75%, rgb(213, 251, 198) 75%,
+			rgb(213, 251, 198));
+	background-size: 15px 15px;
 }
 
 
@@ -131,6 +152,11 @@ tr:first-child{
 /*	background: rgb(159, 199, 126);*/
 /*	color: #ffffff;*/
 /*}*/
+
+/*ToDoを追加するボタン*/
+.button-2 {
+	margin: 20px;
+}
 
 /* 送信ボタン */
 button {

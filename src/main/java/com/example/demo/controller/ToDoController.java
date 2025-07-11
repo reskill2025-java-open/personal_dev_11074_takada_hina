@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Task;
 import com.example.demo.entity.Titles;
@@ -40,6 +41,10 @@ public class ToDoController {
 		List<Titles> titlesList = titlesRepository.findByUserId(account.getId());
 		model.addAttribute("titlesList", titlesList);
 
+		if (titlesList.size() == 0) {
+			model.addAttribute("nullMsg", "現在登録されているToDoはありません。");
+		}
+
 		return "todo";
 	}
 
@@ -57,9 +62,19 @@ public class ToDoController {
 	public String deleteTask(
 			@PathVariable("id") Integer id,
 			@RequestParam("titleId") Integer titleId,
-			Model model) {
+			RedirectAttributes redirectAttributes) {
 
-		taskRepository.deleteById(id);
+		List<Task> taskDeleteList = taskRepository.findByTitleId(titleId);
+		if (taskDeleteList.size() == 1) {
+
+			redirectAttributes.addFlashAttribute("deleteMsg", "タスクは1つ以上登録されている必要があります。");
+
+			return "redirect:/todo/detail/" + titleId;
+
+		} else {
+
+			taskRepository.deleteById(id);
+		}
 
 		return "redirect:/todo/detail/" + titleId;
 	}
@@ -97,7 +112,7 @@ public class ToDoController {
 		return "detail";
 	}
 
-	@GetMapping("/todo/change/progress") //進捗度を更新する
+	@GetMapping("/todo/change/progress") //進捗度をボタンで更新する
 	public String changeProgress(
 			@RequestParam("id") Integer id,
 			@RequestParam("progress") Integer progress, //selectで飛んできたprogressをキャッチ
@@ -238,6 +253,11 @@ public class ToDoController {
 			@RequestParam(name = "taskId", defaultValue = "0") Integer taskId[],
 			@RequestParam(name = "addTasks", defaultValue = "") String addTasks[],
 			Model model) {
+
+		if (title.equals("") || titleContents.equals("") || addTasks.length == 0) {
+			model.addAttribute("addNewMsg", "すべての項目は入力必須です。");
+			return "addToDo";
+		}
 
 		Titles titles = new Titles();
 
