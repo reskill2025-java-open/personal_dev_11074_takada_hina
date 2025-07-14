@@ -16,7 +16,7 @@ else if (8 <= hour && hour < 10) {
 } else if (12 <= hour && hour < 13) {
 	document.getElementById("greeting").textContent = "お昼はなにを食べましたか？";
 } else if (13 <= hour && hour < 15) {
-	document.getElementById("greeting").textContent = "眠くなる時間ですね。";
+	document.getElementById("greeting").textContent = "ウトウトする時間ですね。";
 
 } else if (15 <= hour && hour < 16) {
 	document.getElementById("greeting").textContent = "眠気は覚めましたか？";
@@ -26,7 +26,7 @@ else if (8 <= hour && hour < 10) {
 	document.getElementById("greeting").textContent = "今日もお疲れさまでした！";
 
 } else if (22 <= hour && hour < 1) {
-	document.getElementById("greeting").textContent = "そろそろ寝る時間ですね。";
+	document.getElementById("greeting").textContent = "眠くなってきましたね。";
 } else {
 
 	document.getElementById("greeting").textContent = "今日は夜更かししますか？";

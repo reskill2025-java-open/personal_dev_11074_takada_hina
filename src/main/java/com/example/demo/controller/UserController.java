@@ -55,7 +55,7 @@ public class UserController {
 				return "redirect:/todo";
 
 			} else {//ログイン失敗
-				model.addAttribute("msg", "ログイン失敗");
+				model.addAttribute("msg", "ログインに失敗しました。");
 				return "login";
 			}
 
@@ -76,6 +76,10 @@ public class UserController {
 
 		if (name.equals("") || password.equals("")) {
 			model.addAttribute("msg", "名前とパスワードを入力してください。");
+			return "new";
+		} else if (name.length() >= 20 || password.length() >= 20) {
+
+			model.addAttribute("msg", "名前とパスワードは20文字以内で入力してください。");
 			return "new";
 		} else {
 

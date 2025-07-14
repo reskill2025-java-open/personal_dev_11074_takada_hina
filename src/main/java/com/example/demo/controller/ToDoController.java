@@ -38,12 +38,15 @@ public class ToDoController {
 	@GetMapping("/todo") //todo一覧を表示
 	public String index(Model model) {
 
-		List<Titles> titlesList = titlesRepository.findByUserId(account.getId());
+		List<Titles> titlesList = titlesRepository.findByUserIdOrderById(account.getId());
 		model.addAttribute("titlesList", titlesList);
 
 		if (titlesList.size() == 0) {
 			model.addAttribute("nullMsg", "現在登録されているToDoはありません。");
 		}
+
+		//		List<Task> taskProgressList = taskRepository.findByTitleId(account.getId());
+		//		//model.addAttribute("progressComplete", taskProgressList);
 
 		return "todo";
 	}
@@ -100,6 +103,9 @@ public class ToDoController {
 			todoProgress = tasksProgress * 100 / (taskList.size() * 5);
 			title.setTitleProgress(todoProgress);
 			titlesRepository.save(title);
+
+			//
+
 		}
 
 		Titles title = new Titles();
@@ -108,6 +114,8 @@ public class ToDoController {
 
 		List<Task> tasksList = taskRepository.findByTitleIdOrderById(id);
 		model.addAttribute("tasksList", tasksList);
+
+		//List<Task> taskProgressList = taskRepository.findByTitleId(id);
 
 		return "detail";
 	}
