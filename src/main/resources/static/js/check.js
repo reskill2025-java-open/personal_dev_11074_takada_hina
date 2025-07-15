@@ -11,7 +11,7 @@ function progressCheck(){
 		let titleProgress = progress[i].textContent;
 		console.log(titleProgress);
 		
-		if(titleProgress==100){
+		if(titleProgress=="100%"){
 			
 		let checkmark = document.getElementsByClassName("checkmark");
 		checkmark[i].innerHTML = 
