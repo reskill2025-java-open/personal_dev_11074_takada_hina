@@ -10,4 +10,6 @@ public interface TitlesRepository extends JpaRepository<Titles, Integer> {
 
 	List<Titles> findByUserId(Integer userId);
 
+	List<Titles> findByUserIdOrderById(Integer userId);
+
 }

@@ -44,18 +44,29 @@ public class UserController {
 			@RequestParam(name = "password", defaultValue = "") String password, Model model) {
 
 		if (name.equals("") || password.equals("")) {
-			model.addAttribute("msg", "入力してください。");
+			//名前とパスワードが必ず入力されている。
+
+			model.addAttribute("msg", "名前とパスワードを入力してください。");
+
 			return "login";
+
 		} else {
 
 			User user = userRepository.findByNameAndPassword(name, password);
-			if (user != null) {//ログイン成功処理
+
+			if (user != null) {
+
+				//ログイン成功処理
+
 				account.setId(user.getId());//userIdをセット
 				account.setName(user.getName());
 				return "redirect:/todo";
 
-			} else {//ログイン失敗
-				model.addAttribute("msg", "ログイン失敗");
+			} else {
+
+				//ログイン失敗
+
+				model.addAttribute("msg", "ログインに失敗しました。");
 				return "login";
 			}
 
@@ -74,13 +85,35 @@ public class UserController {
 			@RequestParam(name = "password", defaultValue = "") String password,
 			Model model) {
 
-		User user = new User();
-		user.setName(name);
-		user.setPassword(password);
+		if (name.equals("") || password.equals("")) {
+			model.addAttribute("msg", "名前とパスワードを入力してください。");
+			//名前とパスワードのどちらか空であることを防ぐ。
 
-		userRepository.save(user);
+			return "new";
+		} else if (name.length() >= 20 || password.length() >= 20) {
 
-		return "redirect:/login";
+			model.addAttribute("msg", "名前とパスワードは20文字以内で入力してください。");
+			//文字数オーバーでエラーが出るのを防ぐ。
+
+			return "new";
+
+		} else if (userRepository.findByNameAndPassword(name, password) != null) {
+
+			model.addAttribute("msg", "この名前とパスワードは使用できません。");
+			//同じ名前とパスワードが登録されるのを防ぐ。
+
+			return "new";
+
+		} else {
+
+			User user = new User();
+			user.setName(name);
+			user.setPassword(password);
+
+			userRepository.save(user);//登録完了
+
+			return "redirect:/login";
+		}
 	}
 
 }

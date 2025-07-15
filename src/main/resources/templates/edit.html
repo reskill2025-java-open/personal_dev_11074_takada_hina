@@ -8,13 +8,38 @@
 </head>
 
 <body>
-	
+
 	<header>
-	    <h1>わたちがやる</h1>
-	    <nav>
-			[[${@account.name}]]さん<br>お疲れさまです<br>
-			<a href="/logout">ログアウト</a>
-	    </nav>
+		
+
+		
+		
+		<h1 class="h1-hedder">
+			
+			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="cloud" viewBox="0 0 16 16">
+		  <path d="M13.405 7.027a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 13H13a3 3 0 0 0 .405-5.973"/>
+		</svg>
+
+		<svg version="1.1" id="_x31_0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" class="airline" xml:space="preserve">
+
+		<g>
+			<path class="st0" d="M423.9,151.41l-292.746,93.633l-66.442-35.543l-33.449,12.668l-13.199,4.93l0.05,0.051l-0.164,0.062
+				l26.152,27.133l12.676,13.262L7.627,280.362c-4.786,1.45-7.778,5.442-7.622,10.164c0.266,7.973,9.305,14.965,17.527,16.875
+				c8.59,1.996,121.145,14.293,125.246,14.934l1.664,0.258l68.734-19.473l39.023-10.965L204.373,430.03l58.394-20.246
+				c2.633-0.863,5.039-2.222,7.145-4.038c2.004-1.73,3.645-3.805,4.871-6.153l91.414-139.832l85.254-24.156
+				c42.535-12.918,59.503-39.699,60.527-54.547C513.154,164.046,466.486,140.937,423.9,151.41z" style="fill: rgb(255, 255, 255);"></path>
+			<path class="st0" d="M221.022,187.101l67.426-20.473l52.656-15.863l-0.187-0.07l0.246-0.078L175.248,84.316
+				c-2.355-1.219-4.886-1.973-7.523-2.238c-2.766-0.282-5.516-0.012-8.168,0.797l-36.828,10.504l-22.512,6.316l0.102,0.074
+				l-0.195,0.054L221.022,187.101z" style="fill: rgb(255, 255, 255);"></path>
+		</g>
+		</svg>
+			
+			MileStone</h1>
+		<nav>
+			[[${@account.name}]]さん　
+			<span id="greeting"></span>
+			<p><a href="/logout">ログアウト</a></p>
+		</nav>
 	</header>
 
 	<h1>編集画面</h1>
@@ -23,34 +48,31 @@
 
 	<form action="/todo/update" method="post">
 
-		<table>
-			<tr>
-				
-				<td><input type="text" name="title" th:value="${title.title}" class="textbox-3"></td>
-			</tr>
-			<tr>
-				
-				<td><input type="date" name="deadline" th:value="${title.deadline}" class="textbox-3"></td>
-			</tr>
-			<tr>
-				
-				<td><input type="text" name="titleContents" th:value="${title.titleContents}" class="textbox-3"></td>
-			</tr>
 
-			<input type="hidden" name="id" th:value="${title.id}">
-			<input type="hidden" name="userId" th:value="${title.userId}">
-			<input type="hidden" name="titleProgress" th:value="${title.titleProgress}">
-		</table>
+
+		<input type="text" name="title" th:value="${title.title}" class="textbox-3" maxlength=20>
+
+		<br>
+		<input type="date" name="deadline" th:value="${title.deadline}" class="textbox-3" maxlength=20>
+
+		<br>
+		<input type="text" name="titleContents" th:value="${title.titleContents}" class="textbox-3" maxlength=20>
+
+
+		<input type="hidden" name="id" th:value="${title.id}">
+		<input type="hidden" name="userId" th:value="${title.userId}">
+		<input type="hidden" name="titleProgress" th:value="${title.titleProgress}">
+
 
 		<h4>タスク</h4>
 
-		<table>
-			<tr th:each="task:${taskList}">
-				<td><input type="text" name="taskTitle" th:value="${task.taskTitle}" class="textbox-3"></td>
-				<input type="hidden" name="taskId" th:value="${task.id}" class="textbox-3">
-			</tr>
 
-		</table>
+		<p th:each="task:${taskList}">
+			<input type="text" name="taskTitle" th:value="${task.taskTitle}" class="textbox-3" maxlength=20>
+			<input type="hidden" name="taskId" th:value="${task.id}">
+		</p>
+
+
 
 		<h2>タスクの追加</h2>
 		<div id="newTasks">
@@ -60,14 +82,20 @@
 
 		<button>完了</button>
 	</form>
-	
-	<a href="/logout">ログアウト</a>
-	<footer class="footer-2">
-			<small>group c</small>
-		</footer>
-	
+
+		
+				<small>group c</small>
+			
+
 	<!--	Javascript読み込み-->
 	<script th:src="@{/js/taskAdd.Js}"></script>
+
+	<!--	時間で変わるメッセージを表示するJavascript読み込み-->
+	<script th:src="@{/js/hourMessage.Js}"></script>
+
+	<!--	文字数制限Javascript読み込み-->
+	<script th:src="@{/js/mojiMax.Js}"></script>
+
 
 </body>
 
